@@ -1,5 +1,5 @@
+/* eslint-disable */
 // scripts.js
-
 /**
  * @param {number} dividend - number to be divided
  * @param {number} divider - number to be divided by

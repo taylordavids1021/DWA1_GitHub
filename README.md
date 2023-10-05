@@ -37,6 +37,7 @@ Using what you’ve learned about Gherkin Syntax, write user stories to describe
 2. User story(ies) in Gherkin syntax for the “-” button
 
 # DWA4
+Install @eslint
 To complete this Knowledge Check, ensure you have worked through all the lessons in Module 4: Code Style and submit your responses to the following two items:
 
 1. Select three rules from the Airbnb Style Guide that you find useful and explain why.
