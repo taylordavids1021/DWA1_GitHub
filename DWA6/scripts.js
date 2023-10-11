@@ -1,27 +1,85 @@
+// @ts-check
+// @ts-nocheck
+/**
+ * Use // @ts-check to opt in to type checking for a single file.
+ * Use // @ts-nocheck to opt out of type checking for a single file.
+ * Use // @ts-ignore to opt out of type checking for a single line
+ * 
+ */
+
 // ------------------------------------------- Importing variables from the data.js ----------------------------------------------------- //
 import { BOOKS_PER_PAGE, authors, genres, books } from './data.js';
 
+
+/**
+ * The html object contains constant variables that select HTML DOM elements with specific data attribute values and makes
+ * them easily accessible.
+ * 
+ * @typedef {Object} html - HTML Element data attribute values
+ * @prop {Object} header - HTML header data attribute values
+ * @prop {Object} list - HTML list data attribute values
+ * @prop {Object} search - HTML search data attribute values
+ * @prop {Object} settings - HTML settings data attribute values
+ */
+
+/**
+ * HTML object containing HTML data attributes
+ * @type {html}
+ */
+const html = {
+    header: {
+        search: document.querySelector('[data-header-search]'),
+        settings: document.querySelector('[data-header-settings]'),
+    },
+    list: {
+        items: document.querySelector('[data-list-items]'),
+        message: document.querySelector('[data-list-message]'),
+        button: document.querySelector('[data-list-button]'),
+        active: document.querySelector('[data-list-active]'),
+        blur: document.querySelector('[data-list-blur]'),
+        image: document.querySelector('[data-list-image]'),
+        title: document.querySelector('[data-list-title]'),
+        subtitle: document.querySelector('[data-list-subtitle]'),
+        description: document.querySelector('[data-list-description]'),
+        close: document.querySelector('[data-list-close]'),
+    },
+    search: {
+        overlay: document.querySelector('[data-search-overlay]'),
+        form: document.querySelector('[data-search-form]'),
+        title: document.querySelector('[data-search-title]'),
+        genres: document.querySelector('[data-search-genres]'),
+        authors: document.querySelector('[data-search-authors]'),
+        cancel: document.querySelector('[data-search-cancel]'),
+    },
+        settings: {
+            overlay: document.querySelector('[data-settings-overlay]'),
+            form: document.querySelector('[data-settings-form]'),
+            theme: document.querySelector('[data-settings-theme]'),
+            cancel: document.querySelector('[data-settings-cancel]'),
+        },
+    };
 // ------------------------------------------- Retrieved elements from the DOM using query Selectors ------------------------------------ //
-const settings_Button = document.querySelector('[data-header-settings]')
-const settings_Overlay = document.querySelector('[data-settings-overlay]')
-const settings_Form = document.querySelector('[data-settings-form]')
-const settings_Theme = document.querySelector('[data-settings-theme]')
-const settings_Cancel = document.querySelector('[data-settings-cancel]')
-const search_Form = document.querySelector('[data-search-form]')
-const search_Overlay = document.querySelector('[data-search-overlay]');
-const book_List_1 = document.querySelector('[data-list-items]');
-const message_List = document.querySelector('[data-list-message]')
-const data_List_Button = document.querySelector('[data-list-button]');
+// const settings_Button = document.querySelector('[data-header-settings]')
+// const settings_Overlay = document.querySelector('[data-settings-overlay]')
+// const settings_Form = document.querySelector('[data-settings-form]')
+// const settings_Theme = document.querySelector('[data-settings-theme]')
+// const settings_Cancel = document.querySelector('[data-settings-cancel]')
+// const search_Form = document.querySelector('[data-search-form]')
+// const search_Overlay = document.querySelector('[data-search-overlay]');
+// const book_List_1 = document.querySelector('[data-list-items]');
+// const message_List = document.querySelector('[data-list-message]')
+// const data_List_Button = document.querySelector('[data-list-button]');
 
 // ------------------------------------------- Day & Night Option ----------------------------------------------------------------------- //
 // ------------------------------------------- Event listner allowing you to click option to show theme --------------------------------- //
-settings_Button.addEventListener('click', () => {
-    settings_Overlay.showModal()
+
+html.header.settings.addEventListener('click', () => {
+    html.settings.overlay.showModal()
 })
 
 // ------------------------------------------- Event listener to click cancel -----------------------------------=----------------------- //
-settings_Cancel.addEventListener('click', () => { 
-    settings_Overlay.close()
+html.settings.cancel.addEventListener('click', () => { 
+    html.settings.overlay.close()
 })
 
 // ------------------------------------------- The css object defines two themes, 'day' and 'night' ------------------------------------- //
@@ -36,10 +94,10 @@ const css = {
  */
 
 // --- The value of the settingsTheme input is determined based on whether the user's preferred color scheme is dark or not. ------------ //
-settings_Theme.value = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
+html.settings.theme.value = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day'
 
 // --- When the form is submitted, the selected object is created by converting the form data to an object using Object.fromEntries(). -- //
-settings_Form.addEventListener('submit', (event) => { 
+html.settings.form.addEventListener('submit', (event) => { 
     event.preventDefault()
     const form_Submit = new FormData(event.target)
     const selected = Object.fromEntries(form_Submit)
@@ -54,11 +112,12 @@ if (selected.theme === 'night') {
         document.documentElement.style.setProperty('--color-light', css[selected.theme][0])
         document.documentElement.style.setProperty('--color-dark', css[selected.theme][1])
     }
-    settings_Overlay.close()
+    html.settings.overlay.close()
 })
 // ------------------------------------------- End of color theme ----------------------------------------------------------------------- //
 
 // ------------------------------------------- Create let for pages -- as it changes further in the code -------------------------------- //
+const matches = books;
 let page = 1;
 
 // ------------------------------------------- Add curly brackets --- replace range with page ------------------------------------------- //
@@ -84,7 +143,7 @@ for (let i = 0; i < extracted.length; i++) {
     preview.dataset.image = books[i].image
     preview.dataset.subtitle = `${authors[books[i].author]} (${(new Date(books[i].published)).getFullYear()})`
     preview.dataset.description = books[i].description
-    preview.dataset.genre = books[i].genres
+    preview.dataset.genres = books[i].genres
 
     preview.innerHTML= // ------------------------------------------ HTML structure ------------------------------------------------- //
     `<div>
@@ -99,24 +158,26 @@ for (let i = 0; i < extracted.length; i++) {
 }
 
 // ------------------------------------------- Display fragment in data-list-items ------------------------------------------------------ //
-const book_list_1 = document.querySelector('[data-list-items]') 
-book_list_1.appendChild(fragment)
+//const book_list_1 = document.querySelector('[data-list-items]') 
+html.list.items.appendChild(fragment)
 
 // ------------------------------------------- Create settings button with data stored in data-header-settings = imported from data.js - //
-const setting_button = document.querySelector("[data-header-settings]")
-    setting_button.addEventListener('click', () => {
-    document.querySelector("[data-settings-overlay]").style.display = "block";
+//const setting_button = document.querySelector("[data-header-settings]")
+html.header.settings.addEventListener('click', () => {
+    //document.querySelector("[data-settings-overlay]").style.display = "block";
+    html.settings.overlay.style.display = "block";
 })
 
 // ------------------------------------------- Create cancel settings button with data stored in data-setting-cancel = imported from data.js - //
-const setting_cancel = document.querySelector('[data-settings-cancel]')
-    setting_cancel.addEventListener('click', () => {
-    document.querySelector("[data-settings-overlay]").style.display = "none";
+//const setting_cancel = document.querySelector('[data-settings-cancel]')
+html.settings.cancel.addEventListener('click', () => {
+    //document.querySelector("[data-settings-overlay]").style.display = "none";
+    html.settings.overlay.style.display = "none";
 })
 
 // ------------------------------------------- Create variable to collect data from html to place them specifically ------------------------- // 
-const author_Select = document.querySelector("[data-search-authors]");
-const genre_Select = document.querySelector("[data-search-genres]");
+//const author_Select = document.querySelector("[data-search-authors]");
+//const genre_Select = document.querySelector("[data-search-genres]");
 
 /**
  * The Object.entries() static method returns an array of a given object's 
@@ -129,12 +190,12 @@ const genre_Select = document.querySelector("[data-search-genres]");
 // ------------------------------------------- Object.entries() is used to iterate over the authors and genre in an arrow function ---------- //
 Object.entries(authors).forEach(([author_Id, author_Name]) => {
     const option_Element = createOptionElement(author_Id, author_Name);
-    author_Select.appendChild(option_Element);
+    html.search.authors.appendChild(option_Element);
 });
 
 Object.entries(genres).forEach(([genreId, genreName]) => {
     const option_Element = createOptionElement(genreId, genreName);
-    genre_Select.appendChild(option_Element);
+    html.search.genres.appendChild(option_Element);
 });
 
 // ------------------------------------------- Function with paramaters - creating an empty selector for user to direct what the user wants - // 
@@ -150,36 +211,36 @@ function createOptionElement(value, text) {
 const detailsToggle = (event) => {  
     // ------------------------------------------ Creating a path way form the html to the body to div etc -------------------------------- //
     // ------------------------------------------- Create variable to call data-"key" in html ------------------------------------------- //
-    const overlay_1 = document.querySelector('[data-list-active]');
-    const title = document.querySelector('[data-list-title]')
-    const subtitle = document.querySelector('[data-list-subtitle]')
-    const description = document.querySelector('[data-list-description]')
-    const image_Src = document.querySelector('[data-list-image]')
-    const blur_List = document.querySelector('[data-list-blur]')
+    // const overlay_1 = document.querySelector('[data-list-active]');
+    // const title = document.querySelector('[data-list-title]')
+    // const subtitle = document.querySelector('[data-list-subtitle]')
+    // const description = document.querySelector('[data-list-description]')
+    // const image_Src = document.querySelector('[data-list-image]')
+    // const blur_List = document.querySelector('[data-list-blur]')
     /**
      * The target property returns the element on which the event occurred, 
      * opposed to the currentTarget property, which returns the element whose event listener triggered the event.
      */
-    event.target.dataset.id ? overlay_1.style.display = "block" : undefined;
-    event.target.dataset.description ? description.innerHTML = event.target.dataset.description : undefined;
-    event.target.dataset.subtitle ? subtitle.innerHTML = event.target.dataset.subtitle : undefined;
-    event.target.dataset.title ? title.innerHTML = event.target.dataset.title : undefined;
-    event.target.dataset.image ? image_Src.setAttribute ('src', event.target.dataset.image) : undefined;
-    event.target.dataset.image ? blur_List.setAttribute ('src', event.target.dataset.image) : undefined;
+    event.target.dataset.id ? html.list.active.style.display = "block" : undefined;
+    event.target.dataset.description ? html.list.description.innerHTML = event.target.dataset.description : undefined;
+    event.target.dataset.subtitle ? html.list.subtitle.innerHTML = event.target.dataset.subtitle : undefined;
+    event.target.dataset.title ? html.list.title.innerHTML = event.target.dataset.title : undefined;
+    event.target.dataset.image ? html.list.image.setAttribute ('src', event.target.dataset.image) : undefined;
+    event.target.dataset.image ? html.list.blur.setAttribute ('src', event.target.dataset.image) : undefined;
 };
 
 // ------------------------------------------- Click function to close details -------------------------------------------------------------- //
-const details_Close = document.querySelector('[data-list-close]')    
-    details_Close.addEventListener('click', () => {
-    document.querySelector("[data-list-active]").style.display = "none";
+//const details_Close = document.querySelector('[data-list-close]')    
+html.list.close.addEventListener('click', () => {
+    html.list.active.style.display = "none";
 });
 
 // ------------------------------------------- Add event lisnter to click on specific data-list --------------------------------------------- //
-const book_click = document.querySelector('[data-list-items]')
-book_click.addEventListener('click', detailsToggle)
+//const book_click = document.querySelector('[data-list-items]')
+html.list.items.addEventListener('click', detailsToggle)
 
 // ------------------------------------------- Show more books - selecting button in html --------------------------------------------------- //
-const show_More_Button = document.querySelector('[data-list-button]')
+//const show_More_Button = document.querySelector('[data-list-button]')
 
 // ------------------------------------------- Variable structure of books when clicking more ----------------------------------------------- //
 const num_Items_To_Show = Math.min(books.length - end_Index,)
@@ -191,7 +252,7 @@ const show_More_Button_Text = `Show More (${num_Items_To_Show})`
 show_More_Button.textContent = show_More_Button_Text
 
 // ------------------------------------------- Event listener to click the more button and display more books -------------------------------- //
-show_More_Button.addEventListener('click', () => {         
+html.list.button.addEventListener('click', () => {         
     const fragment = document.createDocumentFragment()
     start_Index += 36;
     end_Index += 36;
@@ -224,30 +285,30 @@ show_More_Button.addEventListener('click', () => {
         fragment.appendChild(preview)
     }
     
-    const book_list_1 = document.querySelector('[data-list-items]') 
-    book_list_1.appendChild(fragment)
+    //const book_list_1 = document.querySelector('[data-list-items]') 
+    html.list.items.appendChild(fragment)
 });
 // -------------------------------------------------- End of show more button ---------------------------------------------------------------- //
 
 // -------------------------------------------------- Creating an onclick option for user to view books -------------------------------------- //
 // ------------------------------------------- Create search button with data stored in data-header-search = imported from data.js ------ //
-const search_button = document.querySelector("[data-header-search]");
-    search_button.addEventListener('click', () => {
-    document.querySelector("[data-search-overlay]").style.display = "block";
+//const search_button = document.querySelector("[data-header-search]");
+html.header.search.addEventListener('click', () => {
+    html.search.overlay.style.display = "block";
 })
 
 // ------------------------------------------- Create cancel button with data stored in data-search-cancel = imported from data.js ----- //
-const search_cancel = document.querySelector("[data-search-cancel]");
-    search_cancel.addEventListener('click', () => {
-    document.querySelector("[data-search-overlay]").style.display = "none";
+//const search_cancel = document.querySelector("[data-search-cancel]");
+html.search.cancel.addEventListener('click', () => {
+    html.search.overlay.style.display = "none";
 })
-search_Form.addEventListener('submit', (event) => {
+html.search.form.addEventListener('submit', (event) => {
     event.preventDefault();
     // ------------------------------------------ Hidden book list ------------------------------------------ //
-    book_List_1.style.display = 'none';
+    html.list.items.style.display = 'none';
 
     // ------------------------------------------ Clear message area ------------------------------------------ //
-    message_List.innerHTML = '';
+    html.list.message.innerHTML = '';
       
     // ------------------------------------------ Call data form ------------------------------------------ //
     const data_Form = new FormData(event.target);
@@ -291,15 +352,15 @@ if (book.genres.includes(next_Genre)) {
 } 
 // ------------------------------------------ Displaying no list message if no books matchs search --------------------- //
 if (filtered_Books.length > 0) {
-    message_List.textContent = '';
-    data_List_Button.disabled = true;
+    html.list.message.textContent = '';
+    html.list.button.disabled = true;
    } else {
-    message_List.textContent = 'No results found. Your filters might be to narrow.';
-    data_List_Button.disabled = true;
+    html.list.message.textContent = 'No results found. Your filters might be to narrow.';
+    html.list.button.disabled = true;
    }
 }
 // ------------------------------------------ Display filtered books ------------------------------------------ //
-message_List.style.display = 'block'
+html.list.message.style.display = 'block'
 
 // ------------------------------------------ Creating fragment to hold books that was searched/called ------------------------------------- //
 const fragment2 = document.createDocumentFragment();
@@ -329,9 +390,9 @@ for (const {author, image, title, id, description, published} of filtered_Books)
     fragment2.appendChild(preview);
 }
 // ------------------------------------------ Add filtered books to message ------------------------------------------ //
-const book_List_2 = message_List;
+const book_List_2 = html.list.message;
 book_List_2.appendChild(fragment2);
-search_Form.reset();
-search_Overlay.close();
+html.search.form.reset();
+html.search.overlay.close();
 })
 // -------------------------------------------------- End of code ----------------------------------------------------------------------- //
