@@ -46,3 +46,8 @@ To complete this Knowledge Check, ensure you have worked through all the lessons
 This exercise provides user stories in the Gherkin syntax, covered in Documentation - Reading Material. Please make sure you understand the use and meaning of this syntax before continuing.
 
 Below is the HTML and JavaScript code for a “Whole Number Divider”. At the moment it only meets two user stories (see below under “Resolved Stories”)
+
+# DWA6
+This exercise presents you with a working version of the “Book Connect” website you previously audited as your final challenge. However, you must use objects and functions as abstractions to make the code more maintainable, extendable and easier to change.
+
+You might have already done this in your audit, but this is an opportunity to revisit your decisions and perhaps adjust, change, remove or add abstractions to improve the codebase. Also, please remember that you are encouraged to consider higher-level concepts discussed in the previous lessons, such as documentation, Styleguides and abstractions. Finally, you can start from scratch with the initially provided repository, merely using the script.js file below as a replacement or continue working on your version (if you created one) and updating the data.js file as listed below.
