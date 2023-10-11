@@ -8,6 +8,10 @@ const form = document.querySelector("[data-form]");
 const result = document.querySelector("[data-result]");
 const body = document.querySelector("[data-body]");
 form.addEventListener("submit", (event) => {
+/** 
+ * The preventDefault() method of the Event interface tells the user agent that if the event 
+ * does not get explicitly handled, its default action should not be taken as it normally would be.
+ */
   event.preventDefault();
   const entries = new FormData(event.target);
   const { dividend, divider } = Object.fromEntries(entries);
