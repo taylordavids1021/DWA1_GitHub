@@ -125,6 +125,8 @@ class BookPreview extends HTMLElement {
 
   // -------------- Method to update the preview with the book data -------------- //
   updatePreview() {
+    // ------------ Sets or returns a reference to the DOM tree inside the ShadowRoot. -------------- //
+    // ------------ The mode of the ShadowRoot, either open or closed ------------- //
     const titleElement = this.shadowRoot.querySelector(".preview__title");
     const authorElement = this.shadowRoot.querySelector(".preview__author");
     const imageElement = this.shadowRoot.querySelector(".preview__image");
