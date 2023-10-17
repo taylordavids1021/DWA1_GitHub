@@ -57,7 +57,7 @@ You might have already done this in your audit, but this is an opportunity to re
 # DWA8 
 
 # DWA9
-
+This is an extension of the Book connect app/site. In this case I am converting certain aspects such as the book preview element to a web component.
 # DWA10
 In this module, I am required to use the Shoelace component library in a brand-new JavaScript project and build the original Tally App example from the very first lesson using only Shoelace components. I have been provided with three user stories that should be met at a minimum, however, I am encouraged to add additional functionality. I am free to choose the components I think are best suited to meet these user stories.
 
