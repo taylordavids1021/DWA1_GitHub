@@ -53,26 +53,26 @@ This exercise presents you with a working version of the “Book Connect” webs
 You might have already done this in your audit, but this is an opportunity to revisit your decisions and perhaps adjust, change, remove or add abstractions to improve the codebase. Also, please remember that you are encouraged to consider higher-level concepts discussed in the previous lessons, such as documentation, Styleguides and abstractions. Finally, you can start from scratch with the initially provided repository, merely using the script.js file below as a replacement or continue working on your version (if you created one) and updating the data.js file as listed below.
 
 # DWA7 
-
+In this challenge, you will revisit the previous abstractions you created in the “Book Connect” project and consider them through the lens of SOLID.
 # DWA8 
-
+In this Module, you will continue with your “Book Connect” codebase, and further iterate on your abstractions. You must create an encapsulated abstraction of the book preview using a single factory function. If you are up for it, you can also encapsulate other aspects of the app into their own abstractions.
 # DWA9
 This is an extension of the Book connect app/site. In this case I am converting certain aspects such as the book preview element to a web component.
 # DWA10
 In this module, I am required to use the Shoelace component library in a brand-new JavaScript project and build the original Tally App example from the very first lesson using only Shoelace components. I have been provided with three user stories that should be met at a minimum, however, I am encouraged to add additional functionality. I am free to choose the components I think are best suited to meet these user stories.
 
-User Stories (Gherkin syntax)
-SCENARIO 1: Increment the counter by one
+# User Stories (Gherkin syntax)
+# SCENARIO 1: Increment the counter by one
  GIVEN the tally counter app is open
  AND the counter is at 0
  WHEN I click the "Add" button
  THEN the counter should display 1
-SCENARIO 2: Decrement the counter by one
+# SCENARIO 2: Decrement the counter by one
  GIVEN the tally counter app is open
  AND the counter is at 1
  WHEN I click the "Subtract" button
  THEN the counter should display 0
-SCENARIO 3: Resetting the Tally Counter
+# SCENARIO 3: Resetting the Tally Counter
  GIVEN the tally counter app is open
  AND the counter value is 10
  WHEN I click on the "Reset" button
