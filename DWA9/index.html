@@ -28,8 +28,8 @@
 
     <!-- DEFER attribute allows the elimination of parser-blocking JavaScript where the browser would have to 
       load and evaluate scripts before continuing to parse. async has a similar effect in this case. -->
-    <script src="./data.js" defer></script>
-    <script src="./scripts.js" defer></script>
+      <script src="./scripts.js" defer type="module"></script>
+      <script src="./modules/dom.js" defer type="module"></script>
   </head>
   <body>
 
