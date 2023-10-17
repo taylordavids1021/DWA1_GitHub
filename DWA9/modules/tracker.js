@@ -23,16 +23,16 @@ export const loadedTracker = (prop) => {
   };
 // ------------------------------------------------ Check the books in array --------------------------- //
   const checker = () => {
-    let booksLeft = prop.length - BOOKS_PER_PAGE - tracker;
-    let btnText = booksLeft > 0 ? booksLeft : 0;
-    const button = getHtmlElement(".list__remaining", selectors.loadMore);
-    button.textContent = `(${btnText})`;
+    let books_Left = prop.length - BOOKS_PER_PAGE - tracker;
+    let button_Text = books_Left > 0 ? books_Left : 0;
+    const button = getHtmlElement(".list__remaining", selectors.load_More);
+    button.textContent = `(${button_Text})`;
     return button;
   };
 // ------------------------------------------------ Load books ----------------------------------------------- //
   const loaded = () => {
-    let booksLoaded = BOOKS_PER_PAGE + tracker;
-    return booksLoaded;
+    let books_Loaded = BOOKS_PER_PAGE + tracker;
+    return books_Loaded;
   };
 
   return {
