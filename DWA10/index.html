@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tally Count</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.2/cdn/themes/light.css"/>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.5.2/cdn/shoelace-autoloader.js"></script>
+  </head>
+  <body>
+    <div class="alert_closable">
+        <sl-alert variant="primary" closable data-key="alert">
+        <sl-icon slot="icon" name="info-circle"></sl-icon>You have reset counter to 0</sl-alert>
+    </div>
+    <header class="header">
+      <h1 class="header_title">Tally Count</h1>
+    </header>
+    <main class="counter">
+      <input class="counter_value" data-key="number" readonly value="0" />
+      <div class="counter_action">
+        <sl-button data-key="subtract" class="counter_button counter_button_first">-</sl-button>
+        <sl-button data-key="add" class="counter_button">+</sl-button>
+      </div>
+      <div class="counter_reset">
+        <sl-button data-key="reset" class="reset_button">Reset</sl-button>
+      </div>
+    </main>
+  </body>
+</html>
