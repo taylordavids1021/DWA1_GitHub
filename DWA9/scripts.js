@@ -16,7 +16,7 @@ const moreBooksHandler = (e) => {
     if (i === books.length) {
       selectors.loadMore.disabled = true;
       break;
-    }else{
+    } else{
       const bookPreview = new BookPreview();
       const prop = books[i];
       const index = i;
