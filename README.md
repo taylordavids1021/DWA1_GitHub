@@ -77,4 +77,8 @@ In this module, I am required to use the Shoelace component library in a brand-n
  AND the counter value is 10
  WHEN I click on the "Reset" button
  THEN the counter value should change to 0
- AND a confirmation message should be displayed that the counter has been reset
+ AND a confirmation message should be displayed that the counter has been reset# DWA
+
+# DWA11
+
+For this challenge, you will be required to use the two supplied video lessons as a reference to create your own implementation of a Redux-inspired store to manage the state of a basic counting Tally App. Note that you are not required to render any HTML to the screen, but instead should add subscriptions that merely log the new state to the console if it changes.
