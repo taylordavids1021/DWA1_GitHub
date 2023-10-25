@@ -1,53 +1,105 @@
-import { createStore } from "./modules/store.js";
-import { reducer } from "./modules/reducers";
-import { increment, decrement, reset } from "./modules/actions";
+window.addEventListener('load', () => {
+  const MAX_NUMBER = 10;
+  const MIN_NUMBER = -10;
+
+  const add = document.querySelector('[data-add-sign]');
+  const number = document.querySelector('[data-number-input]')
+  const subtract = document.querySelector('[data-subtract-sign]')
+  const reset = document.querySelector('[data-reset-input]')
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const MAX_NUMBER = 15;
-    const MIN_NUMBER = -5;
-  
-    const number = document.querySelector('[data-key="number"]');
-    const subtract = document.querySelector('[data-key="subtract"]');
-    const add = document.querySelector('[data-key="add"]');
-    const reset = document.querySelector('[data-key="reset"]');
-  
-    const addHandler = () => {
-      let newValue = parseInt(number.value) + 1;
-      number.value = newValue;
-  
-      if (add.disabled === true) {
-        add.disabled = false;
+  /**Function that checks if we passed the Limit
+   * This is a from of Abstraction
+   */
+  const checkPassedLimits = (number, newValue) => {
+
+      if (number <= MIN_NUMBER) {
+          add.disabled = false;
       }
-  
       if (newValue >= MAX_NUMBER) {
-        add.disabled = true;
+          add.disabled = true;
+          subtract.disabled = false;
       }
-    };
-  
-    const subtractHandler = () => {
-      let newValue = parseInt(number.value) - 1;
-      number.value = newValue;
-  
-      if (subtract.disabled === true) {
-        subtract.disabled = false;
-      }
-  
+
       if (newValue <= MIN_NUMBER) {
-        subtract.disabled = true;
+          subtract.disabled = true
+          add.disabled = false;
       }
-    };
-  
-    const resetHandler = () => {  // Function to handle the reset button click
-      const confirmed = window.confirm("Tally reset"); // Displays a confirmation dialog and store the user's response
-      if (confirmed) {  // If the user confirmed the reset
-        number.value = "0";   // Reset the value of the number input to "0"
-        add.disabled = false;  // Enable the add button
-        subtract.disabled = false;  // Enable the subtract button
+  }
+
+  add.addEventListener("click", () => {
+      myStore.publish({ type: 'ADD' });
+      console.log(myStore.getState())   
+
+      const newValue = parseInt(number.value) + 1;
+      number.value = newValue
+      checkPassedLimits(number.value, newValue)
+  })
+
+  subtract.addEventListener('click', () => {
+      myStore.publish({ type: 'MINUS' });
+      console.log(myStore.getState())
+
+      const newValue = parseInt(number.value) - 1;
+      number.value = newValue
+      checkPassedLimits(number.value, newValue)
+  })
+
+  reset.addEventListener('click', () => {
+      myStore.publish({ type: 'RESET' });
+      console.log(myStore.getState())
+
+      number.value = 0
+      popup.style.display = 'block';
+
+      // Hide the popup after 2 seconds
+      setTimeout(function () {
+          popup.style.display = 'none';
+      }, 1000);
+  })
+
+  const resetHandler = () => {
+    const newValue = RESET_VALUE;
+    elements.number.value = newValue;
+    elements.alert.open = true;
+  }; 
+  /**Implementing My Own Redux */
+  const store = (reducer) => {
+      let state;
+      let handlers = [];
+
+      const fetchState = () => state; //Returns the current state of the App
+
+      const publish = (action) => { //Based on Action given it runs action then save State, then add newState on the Handlers Array 
+          state = reducer(state, action);
+          handlers.unshift(state);
+
+          console.log(handlers);
+      };
+
+      const getState = () => fetchState();  
+
+      return {
+          getState,
+          publish
+      };
+  };
+
+
+
+  const reducer = (state = 0, action) => {
+      switch (action.type) {
+          case 'ADD':
+              return state + 1;
+          case 'MINUS':
+              return state - 1;
+          case 'RESET':
+              return state = 0;
+          default:
+              return state;
       }
-    };
-  
-    add.addEventListener('click', addHandler);
-    subtract.addEventListener('click', subtractHandler);
-    reset.addEventListener('click', resetHandler);
-  });
+  };
+
+  const myStore = store(reducer);
+
+})
