@@ -1,4 +1,5 @@
 //@ts-check
+//@eslint
 import { LitElement, html, css } from "./components/logic.js";
 
 /**
