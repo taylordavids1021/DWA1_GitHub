@@ -1,0 +1,23 @@
+:root{
+    --color-green: #31c48d;
+    --color-white: #ffff;
+    --color-dark-grey: #33333d;
+    --color-medium-grey: #424250;
+    --color-light-grey: #9ca3ae;
+}
+
+
+body{
+    margin: 0;
+    background: var(--color-medium-grey);
+    color: var(--color-white);
+    font-family: Arial, Helvetica, sans-serif;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    height:100vh;
+}
+
+html{
+    height:100vh;
+}
